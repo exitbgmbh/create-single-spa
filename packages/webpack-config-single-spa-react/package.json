@@ -1,7 +1,7 @@
 {
-  "name": "webpack-config-single-spa-react",
-  "version": "4.0.5",
-  "description": "A helper for creating webpack configs for react single-spa applications",
+  "name": "webpack-config-exitb-single-spa-react",
+  "version": "0.0.1",
+  "description": "A exitb optimized helper for creating webpack configs for react single-spa applications",
   "keywords": [
     "single-spa",
     "react",
