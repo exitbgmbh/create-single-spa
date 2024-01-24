@@ -27,6 +27,6 @@
     "url": "https://github.com/single-spa/create-single-spa/issues"
   },
   "dependencies": {
-    "webpack-config-single-spa": "workspace:*"
+    "webpack-config-single-spa": "^5.3.1"
   }
 }
