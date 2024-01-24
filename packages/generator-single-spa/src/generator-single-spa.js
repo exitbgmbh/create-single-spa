@@ -14,7 +14,7 @@ const SingleSpaAngularGenerator = require("./angular/generator-single-spa-angula
 const SingleSpaUtilModuleGenerator = require("./util-module/generator-single-spa-util-module");
 const SingleSpaSvelteGenerator = require("./svelte/generator-single-spa-svelte");
 const versionUpdateCheck = require("./version-update-check");
-const { version } = require("../package.json");
+const { version, remoteVersion } = require("../package.json");
 const ReactUtilModuleGenerator = require("./util-module/generator-react-util-module");
 
 module.exports = class SingleSpaGenerator extends Generator {
@@ -45,17 +45,35 @@ module.exports = class SingleSpaGenerator extends Generator {
       if (this.options[optionKey] === "false") this.options[optionKey] = false;
     });
   }
-  initializing() {
+  checkRemoteVersion = () => {
     const { stdout } = this.spawnCommandSync(
-      "npm",
-      ["view", "create-single-spa@latest", "version"],
-      { stdio: "pipe" }
+        "npm",
+        ["view", "create-single-spa@latest", "version"],
+        { stdio: "pipe" }
     );
 
-    const remoteVersion =
-      stdout && stdout.toString && stdout.toString("utf8").trim();
+    const remoteVersionLatest = stdout
+        && stdout.toString
+        && stdout.toString("utf8").trim();
 
-    if (remoteVersion) versionUpdateCheck(version, remoteVersion);
+    if (remoteVersionLatest) versionUpdateCheck(remoteVersion, remoteVersionLatest);
+  }
+  checkExitBVersion = () => {
+    const { stdout } = this.spawnCommandSync(
+        "npm",
+        ["view", "exitb-create-single-spa@latest", "version"],
+        { stdio: "pipe" }
+    );
+
+    const versionLatest = stdout
+        && stdout.toString
+        && stdout.toString("utf8").trim();
+
+    if (versionLatest) versionUpdateCheck(version, versionLatest, 'exitb-');
+  }
+  initializing() {
+    this.checkExitBVersion();
+    this.checkRemoteVersion();
   }
   async chooseDestinationDir() {
     if (!this.options.dir) {

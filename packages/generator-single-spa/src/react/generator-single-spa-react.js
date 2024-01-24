@@ -31,6 +31,7 @@ module.exports = class SingleSpaReactGenerator extends PnpmGenerator {
         name: "packageManager",
         message: "Which package manager do you want to use?",
         choices: ["yarn", "npm", "pnpm"],
+        default: "npm",
         when: !this.options.packageManager,
       },
       {
@@ -45,6 +46,7 @@ module.exports = class SingleSpaReactGenerator extends PnpmGenerator {
         name: "orgName",
         message: "Organization name",
         suffix: " (can use letters, numbers, dash or underscore)",
+        default: "exitb",
         when: !this.options.orgName,
         validate,
       },
@@ -128,31 +130,31 @@ module.exports = class SingleSpaReactGenerator extends PnpmGenerator {
     }
   }
   async copyOtherFiles() {
-    this.fs.copyTpl(
-      this.templatePath("jest.config.js"),
-      this.destinationPath("jest.config.js"),
-      this.options
-    );
+    //this.fs.copyTpl(
+    //  this.templatePath("jest.config.js"),
+    //  this.destinationPath("jest.config.js"),
+    //  this.options
+    //);
     this.fs.copyTpl(
       this.templatePath("../../common-templates/babel.config.json.ejs"),
       this.destinationPath("babel.config.json"),
       this.options
     );
-    this.fs.copyTpl(
-      this.templatePath(".eslintrc.ejs"),
-      this.destinationPath(".eslintrc"),
-      this.options
-    );
+    // this.fs.copyTpl(
+    //   this.templatePath(".eslintrc.ejs"),
+    //   this.destinationPath(".eslintrc"),
+    //   this.options
+    // );
     this.fs.copyTpl(
       this.templatePath("../../common-templates/gitignore"), // this is relative to /templates
       this.destinationPath(".gitignore"),
       this.options
     );
-    this.fs.copyTpl(
-      this.templatePath(`../../common-templates/.husky/pre-commit`),
-      this.destinationPath(`.husky/pre-commit`),
-      this.options
-    );
+    // this.fs.copyTpl(
+    //   this.templatePath(`../../common-templates/.husky/pre-commit`),
+    //   this.destinationPath(`.husky/pre-commit`),
+    //   this.options
+    // );
 
     if (this.options.typescript) {
       this.fs.copyTpl(

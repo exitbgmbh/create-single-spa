@@ -1,6 +1,6 @@
 const chalk = require("chalk");
 
-module.exports = function versionUpdateCheck(currentVersion, latestVersion) {
+module.exports = function versionUpdateCheck(currentVersion, latestVersion, type = '') {
   try {
     const [latestMajor, latestMinor, latestPatch] = latestVersion.split(".");
     const [currentMajor, currentMinor, currentPatch] =
@@ -28,7 +28,7 @@ module.exports = function versionUpdateCheck(currentVersion, latestVersion) {
       }
       console.log(
         chalk.underline(
-          `\nA ${updateType} of create-single-spa is available: ${msg}\n`
+          `\nA ${updateType} of ${type}create-single-spa is available: ${msg}\n`
         )
       );
     }
